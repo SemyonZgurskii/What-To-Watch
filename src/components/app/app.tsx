@@ -9,7 +9,7 @@ interface Props {
 }
 
 class App extends React.PureComponent<Props, {}> {
-  static defaultProps = {moviesData: {}};
+  static defaultProps = {moviesData: null};
 
   render() {
     const {moviesData} = this.props;
@@ -109,8 +109,8 @@ class App extends React.PureComponent<Props, {}> {
               </li>
             </ul>
 
-            {moviesData.length > 1 &&
-            <MoviesList moviesData={moviesData}/>
+            {moviesData &&
+              <MoviesList moviesData={moviesData}/>
             }
 
             <div className="catalog__more">
@@ -143,6 +143,4 @@ function mapStateToProps(state) {
   }
 }
 
-connect(mapStateToProps);
-
-export default App;
+export default connect(mapStateToProps)(App);
