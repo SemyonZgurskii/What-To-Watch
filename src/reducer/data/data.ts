@@ -1,9 +1,5 @@
 import {MoviesData, ActionType} from "../../types";
-// import {MoviesData, ActionType, Action, ActionCreator} from "../../types";
-
-// type InitialState = {
-//   moviesData: MoviesData | null
-// }
+import {convertData} from "../../adapter/data";
 
 const initialState = {
   moviesData: null as MoviesData | null,
@@ -16,7 +12,7 @@ const ActionType: ActionType = {
 }
 
 const ActionCreator = {
-  loadMoviesData: (moviesData) => {
+  loadMoviesData: (moviesData: MoviesData) => {
     return {
       type: ActionType.LOAD_MOVIES_DATA,
       payload: moviesData,
@@ -32,18 +28,24 @@ const Operation = {
   loadMoviesData: () => (dispatch, getState, api) => {
     return api.get(`/films`)
       .then((response) => {
-        dispatch(ActionCreator.loadMoviesData(response.data));
+        dispatch(ActionCreator.loadMoviesData(response.data.map(convertData)));
       })
   }
 }
 
 function reducer(state: State = initialState, action: Action) {
   switch (action.type) {
-    case (ActionType.LOAD_MOVIES_DATA):
+    case ActionType.LOAD_MOVIES_DATA:
       return Object.assign({}, state, {
         moviesData: action.payload,
-      })
+      });
   }
+
+  return state;
 }
 
-export {reducer, Operation, ActionCreator};
+interface Type {
+  STATE: State,
+}
+
+export {reducer, Operation, ActionCreator, Type};
