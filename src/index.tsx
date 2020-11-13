@@ -7,7 +7,8 @@ import thunkMiddleware from 'redux-thunk';
 
 import App from './components/app/app';
 import {createAPI} from './api';
-import {reducer, Operation} from './reducer/data/data';
+import {Operation} from './reducer/data/data';
+import reducer from "./reducer/reducer";
 
 
 const api = createAPI(() => console.log('wtf'));
@@ -15,6 +16,8 @@ const store = createStore(
   reducer,
   applyMiddleware(thunkMiddleware.withExtraArgument(api))
 );
+
+store.dispatch(Operation.loadMoviesData());
 
 ReactDom.render(
   <Provider store={store}>
