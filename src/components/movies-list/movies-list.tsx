@@ -2,7 +2,7 @@ import * as React from 'react';
 import MovieCard from "../movie-card/movie-card";
 import {MoviesData} from '../../types';
 
-type Props = {
+interface Props {
   moviesData: MoviesData,
 }
 

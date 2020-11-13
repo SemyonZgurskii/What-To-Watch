@@ -1,12 +1,12 @@
 import * as React from 'react';
 import {Movie} from "../../types";
 
-type Props = {
+interface Props {
   previewImage: Movie["previewImage"],
   name: Movie["name"],
 }
 
-function MovieCard(props: Props) {
+function MovieCard(props: Props): React.ReactElement {
   const {previewImage, name} = props;
 
   return (
