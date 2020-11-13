@@ -4,7 +4,7 @@ const Error: {[key: string]: number} = {
   UNAUTHORIZED: 401,
 }
 
-function createAPI(onUnauthorized: () => void): object {
+function createAPI(onUnauthorized: () => void) {
   const api = axios.create({
     baseURL: `https://4.react.pages.academy/wtw`,
     timeout: 5000,
@@ -29,7 +29,7 @@ function createAPI(onUnauthorized: () => void): object {
 
   api.interceptors.response.use(onSuccess, onFail);
 
-  return {};
+  return api;
 }
 
-export default createAPI;
+export {createAPI};
