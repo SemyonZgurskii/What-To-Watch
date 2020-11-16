@@ -1,17 +1,17 @@
-import axios from 'axios';
+import axios, {AxiosInstance, AxiosResponse} from 'axios';
 
 const Error: {[key: string]: number} = {
   UNAUTHORIZED: 401,
 }
 
-function createAPI(onUnauthorized: () => void) {
-  const api = axios.create({
+function createAPI(onUnauthorized: () => void): AxiosInstance {
+  const api: AxiosInstance = axios.create({
     baseURL: `https://4.react.pages.academy/wtw`,
     timeout: 5000,
     withCredentials: true,
   });
 
-  function onSuccess(response) {
+  function onSuccess(response: AxiosResponse) {
     return response;
   }
 
