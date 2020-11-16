@@ -1,6 +1,6 @@
 import * as React from 'react';
 import MoviesList from "../movies-list/movies-list";
-import {MoviesData} from '../../types';
+import {MoviesData, GlobalState} from '../../types';
 import {connect} from 'react-redux';
 import {getMoviesData} from "../../reducer/data/selector";
 
@@ -137,7 +137,7 @@ class App extends React.PureComponent<Props, {}> {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: GlobalState) {
   return {
     moviesData: getMoviesData(state),
   }
