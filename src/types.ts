@@ -1,6 +1,6 @@
-import {PromiseType} from "utility-types";
+import {Type as DataReducer} from "./reducer/data/data";
 
-export type Movie = {
+export type Movie = Readonly<{
   backgroundColor: string,
   backgroundImage: string,
   description: string,
@@ -18,9 +18,10 @@ export type Movie = {
   scoreCount: number,
   starring: Array<string>,
   videoLink: string,
-}
+}>
 
-export type MoviesData = Array<Movie> | null;
+
+export type MoviesData = Readonly<Array<Movie>> | null;
 
 export type ActionType = {
   [key: string]: string,
@@ -34,3 +35,5 @@ export type Action = {
 export type ActionCreator = {
   [key: string]: (arg: any) => Action;
 }
+
+export type GlobalState = DataReducer["STATE"];
