@@ -1,11 +1,12 @@
-// import {reducer, ActionType, Operation} from './data';
-//
-// const initialState = {
-//   moviesData: [],
-// }
-//
-// describe(`test reducer/data`, () => {
-//   it(`with empty arguments should return initial state`, () => {
-//     expect(reducer(void, {})).toEqual(initialState);
-//   });
-// })
+import {reducer, ActionCreator} from './data';
+
+const initialState = {
+  moviesData: [],
+}
+
+describe(`test reducer/data`, () => {
+  // it(`returned value should comply with action type`, () => {
+  //
+  //   expect(reducer(void, {type: "", payload: {}})).toEqual(initialState);
+  // });
+})

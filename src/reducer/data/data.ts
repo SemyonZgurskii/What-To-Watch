@@ -24,7 +24,6 @@ const ActionCreator = {
   }
 }
 
-// :TODO типизировать Operation
 const Operation = {
   loadMoviesData: () => (dispatch: Dispatch, getState: () => State, api: AxiosInstance) => {
     return api.get(`/films`)
@@ -40,9 +39,10 @@ function reducer(state: State = initialState, action: Action) {
       return Object.assign({}, state, {
         moviesData: action.payload,
       });
-  }
 
-  return state;
+    default:
+      return state;
+  }
 }
 
 export interface Type {
