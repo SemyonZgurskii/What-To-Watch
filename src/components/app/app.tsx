@@ -1,8 +1,11 @@
 import * as React from 'react';
 import MoviesList from "../movies-list/movies-list";
-import {MoviesData, GlobalState} from '../../types';
+import withShowMoreButton from "../../hocs/with-show-more-button/with-show-more-button";
+import {MoviesData, GlobalState, Movie} from '../../types';
 import {connect} from 'react-redux';
 import {getMoviesData} from "../../reducer/data/selector";
+
+const MoviesListWrapped = withShowMoreButton<Movie>(MoviesList)
 
 interface Props {
   moviesData: MoviesData;
@@ -110,12 +113,9 @@ class App extends React.PureComponent<Props, {}> {
             </ul>
 
             {moviesData &&
-              <MoviesList moviesData={moviesData}/>
+              <MoviesListWrapped basicData={moviesData}/>
             }
 
-            <div className="catalog__more">
-              <button className="catalog__button" type="button">Show more</button>
-            </div>
           </section>
 
           <footer className="page-footer">
