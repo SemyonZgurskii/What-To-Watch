@@ -1,6 +1,7 @@
 import {convertData} from "./adapter/data";
+import {MoviesData} from "./types";
 
-const moviesData = [
+const moviesData: MoviesData = [
   {
     background_color: "#A39E81",
     background_image: "https://htmlacademy-react-3.appspot.com/wtw/static/film/background/What-We-Do-in-the-Shadows.jpg",
