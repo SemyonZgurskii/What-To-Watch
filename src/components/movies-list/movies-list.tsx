@@ -6,27 +6,31 @@ import withVideoPlayer from "../../hocs/with-video-player/with-video-player";
 const MovieCardWrapped = withVideoPlayer(MovieCard);
 
 interface Props {
-  moviesData: MoviesData,
+  processedData: MoviesData,
+  children?: React.ReactNode,
 }
 
-function MoviesList(props: Props) {
-  const {moviesData} = props;
+function MoviesList(props: Props): React.ReactElement {
+  const {processedData, children} = props;
 
   return (
-    <div className="catalog__movies-list">
-      {moviesData.map((movieData) => {
-        const {previewImage, name, id, previewVideoLink} = movieData;
+    <>
+      <div className="catalog__movies-list">
+        {processedData.map((movieData) => {
+          const {previewImage, name, id, previewVideoLink} = movieData;
 
-        return (
-          <MovieCardWrapped
-            key={id}
-            previewImage={previewImage}
-            previewVideoLink={previewVideoLink}
-            name={name}
-          />
-        )
-      })}
-    </div>
+          return (
+            <MovieCardWrapped
+              key={id}
+              previewImage={previewImage}
+              previewVideoLink={previewVideoLink}
+              name={name}
+            />
+          )
+        })}
+      </div>
+      {children}
+    </>
   )
 }
 
