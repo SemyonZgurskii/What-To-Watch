@@ -3,12 +3,15 @@ import {convertData} from "../../adapter/data";
 import {Dispatch} from "redux";
 import {AxiosInstance} from "axios";
 
-type State = typeof initialState;
+interface State {
+  moviesData: MoviesData | null,
+}
+
 type PropertiesType<T> = T extends {[key: string]: infer U} ? U : never;
 type Action = ReturnType<PropertiesType<typeof ActionCreator>>
 
-const initialState = {
-  moviesData: null as MoviesData | null,
+const initialState: State = {
+  moviesData: null,
 }
 
 const ActionType: ActionType = {
@@ -33,7 +36,7 @@ const Operation = {
   }
 }
 
-function reducer(state: State = initialState, action: Action) {
+function reducer(state: State = initialState, action: Action): State {
   switch (action.type) {
     case ActionType.LOAD_MOVIES_DATA:
       return Object.assign({}, state, {
