@@ -25,6 +25,15 @@ export const getFilteredMovies = createSelector(
   getMoviesData,
   getActiveGenre,
   (moviesData, activeGenre) => {
-    return moviesData.filter((movie) => movie.genre === activeGenre);
+    if (moviesData === null) {
+      return null;
+    }
+
+    switch (activeGenre) {
+      case Genre.AllGenres:
+        return moviesData;
+      default:
+        return moviesData.filter((movie) => movie.genre === activeGenre);
+    }
   }
 )
