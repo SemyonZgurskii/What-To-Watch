@@ -1,4 +1,3 @@
-// TODO: доделать сбору (typescript и т.д)
 import * as React from 'react';
 import * as ReactDom from 'react-dom';
 import {createStore, applyMiddleware} from 'redux';
@@ -18,6 +17,7 @@ const store = createStore(
 );
 
 store.dispatch(Operation.loadMoviesData());
+store.dispatch(Operation.loadPromoMovie());
 
 ReactDom.render(
   <Provider store={store}>
