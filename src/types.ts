@@ -26,20 +26,6 @@ export type Movie = Readonly<{
 
 export type MoviesData = Readonly<Array<Movie>> | null;
 
-export type ActionType = {
-  [key: string]: string,
-}
-
-export type Action = {
-  type: string,
-  payload: string | number | [] | {},
-}
-
-export type ActionCreator = {
-  [key: string]: (arg: any) => Action;
-}
-
-// export type GlobalState = dataState & appState;
 export interface GlobalState {
   [NameSpace.APP]: appState,
   [NameSpace.DATA]: dataState,
