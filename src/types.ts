@@ -1,11 +1,14 @@
-import {Type as DataReducer} from "./reducer/data/data";
+import {State as dataState} from "./reducer/data/data";
+import {State as appState} from "./reducer/app/app";
+import NameSpace from "./reducer/name-space";
+import {Genre} from "./constants";
 
 export type Movie = Readonly<{
   backgroundColor: string,
   backgroundImage: string,
   description: string,
   director: string,
-  genre: string,
+  genre: Genre,
   id: number,
   isFavorite: boolean,
   name: string,
@@ -36,4 +39,8 @@ export type ActionCreator = {
   [key: string]: (arg: any) => Action;
 }
 
-export type GlobalState = DataReducer["STATE"];
+// export type GlobalState = dataState & appState;
+export interface GlobalState {
+  [NameSpace.APP]: appState,
+  [NameSpace.DATA]: dataState,
+}

@@ -1,7 +1,7 @@
-import {reducer, ActionCreator, Type} from "./app";
+import {reducer, ActionCreator, State} from "./app";
 import {Genre} from "../../constants";
 
-const initialState: Type["STATE"] = {
+const initialState: State = {
   activeGenre: Genre.AllGenres,
 }
 

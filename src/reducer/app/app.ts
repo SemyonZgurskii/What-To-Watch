@@ -1,7 +1,7 @@
 import {Genre} from "../../constants";
 import {ActionType} from "../../types";
 
-interface State {
+export interface State {
   activeGenre: Genre,
 }
 
@@ -28,16 +28,10 @@ const ActionCreator = {
 function reducer(state: State = initialState, action: Action): State {
   switch (action.type) {
     case ActionType.SET_ACTIVE_GENRE:
-      return Object.assign({}, state, {
-          activeGenre: action.payload,
-        })
+      return {...state, activeGenre: action.payload}
     default:
       return state;
   }
-}
-
-export interface Type {
-  STATE: State,
 }
 
 export {reducer, ActionCreator};
