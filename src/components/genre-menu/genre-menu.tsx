@@ -1,26 +1,34 @@
 import * as React from "react";
-import {MAX_GENRES_COUNT} from "../../constants";
+import {Genre, MAX_GENRES_COUNT} from "../../constants";
+
+const ACTIVE_CLASS = "catalog__genres-item--active";
 
 interface Props {
-  genres: ReadonlyArray<string>,
+  activeGenre: Genre,
+  genres: ReadonlyArray<Genre>,
   setActiveGenre: (genre) => void,
 }
 
 function GenreMenu (props: Props): React.ReactElement {
-  const {genres, setActiveGenre} = props;
+  const {genres, setActiveGenre, activeGenre} = props;
   let trimmedGenres = genres.slice(0, MAX_GENRES_COUNT);
-  trimmedGenres.unshift("All genres");
+  trimmedGenres.unshift(Genre.AllGenres);
 
   return (
     <ul className="catalog__genres-list">
-      {trimmedGenres.map((genre) =>
-        <li className="catalog__genres-item catalog__genres-item--active"
-            key={genre}>
-          <a href="#" className="catalog__genres-link"
-            onClick={() => setActiveGenre(genre)}
-          >{genre}</a>
-        </li>
-      )}
+      {trimmedGenres.map((genre) => {
+        const modifier = genre === activeGenre ? ACTIVE_CLASS : "";
+
+        return (
+          <li className={`catalog__genres-item ${modifier}`}
+              key={genre}>
+            <a href="#"
+               className="catalog__genres-link"
+               onClick={() => setActiveGenre(genre)}
+            >{genre}</a>
+          </li>
+        )
+      })}
     </ul>
   )
 }
