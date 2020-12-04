@@ -3,7 +3,7 @@ import MoviesList from "../movies-list/movies-list";
 import withShowMoreButton from "../../hocs/with-show-more-button/with-show-more-button";
 import {MoviesData, GlobalState, Movie} from '../../types';
 import {connect} from 'react-redux';
-import {getGenres, getMoviesData} from "../../reducer/data/selector";
+import {getFilteredMovies, getGenres} from "../../reducer/data/selector";
 import {getActiveGenre} from "../../reducer/app/selector";
 import {ActionCreator} from "../../reducer/app/app";
 import GenreMenu from "../genre-menu/genre-menu";
@@ -90,7 +90,7 @@ class App extends React.PureComponent<Props, {}> {
               <GenreMenu
                 genres={genres}
                 setActiveGenre={setActiveGenre}
-                // activeGenre={activeGenre}
+                activeGenre={activeGenre}
               />
             }
 
@@ -122,7 +122,7 @@ class App extends React.PureComponent<Props, {}> {
 
 function mapStateToProps(state: GlobalState) {
   return {
-    moviesData: getMoviesData(state),
+    moviesData: getFilteredMovies(state),
     activeGenre: getActiveGenre(state),
     genres: getGenres(state),
   }
