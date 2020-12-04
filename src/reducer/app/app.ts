@@ -1,5 +1,4 @@
 import {Genre} from "../../constants";
-import {ActionType} from "../../types";
 
 export interface State {
   activeGenre: Genre,
@@ -12,8 +11,8 @@ const initialState: State = {
   activeGenre: Genre.AllGenres,
 }
 
-const ActionType: ActionType = {
-  SET_ACTIVE_GENRE: "SET_ACTIVE_GENRE",
+enum ActionType {
+  SET_ACTIVE_GENRE = "SET_ACTIVE_GENRE",
 }
 
 const ActionCreator = {
