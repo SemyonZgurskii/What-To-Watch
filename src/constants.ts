@@ -1,6 +1,7 @@
 export const BASIC_MOVIES_COUNT: number = 8;
 export const MOVIES_PER_CLICK: number = 8;
 export const MAX_GENRES_COUNT: number = 9;
+
 export enum Genre {
   AllGenres = "All genres",
   Comedies = "comedies",
@@ -12,4 +13,9 @@ export enum Genre {
   Romance = "romance",
   SciFi = "sci-fi",
   Thrillers = "thrillers",
+}
+
+export enum AppRoute {
+  MAIN = "/",
+  PLAYER = "/play",
 }

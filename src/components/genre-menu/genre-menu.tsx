@@ -24,7 +24,11 @@ function GenreMenu (props: Props): React.ReactElement {
               key={genre}>
             <a href="#"
                className="catalog__genres-link"
-               onClick={() => setActiveGenre(genre)}
+               onClick={(evt) => {
+                   evt.preventDefault();
+                   setActiveGenre(genre)
+                 }
+               }
             >{genre}</a>
           </li>
         )
