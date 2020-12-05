@@ -14,7 +14,7 @@ interface ComponentProps {
   handleMouseOut: () => void,
 }
 
-function withVideoPlayer(Component: React.ComponentType<ComponentProps>): React.ComponentType<HocProps> {
+function withSmallVideoPlayer(Component: React.ComponentType<ComponentProps>): React.ComponentType<HocProps> {
   return function (props) {
     const {name, previewVideoLink, previewImage} = props;
     const video: React.RefObject<HTMLVideoElement> = React.createRef();
@@ -59,4 +59,4 @@ function withVideoPlayer(Component: React.ComponentType<ComponentProps>): React.
   }
 }
 
-export default withVideoPlayer;
+export default withSmallVideoPlayer;

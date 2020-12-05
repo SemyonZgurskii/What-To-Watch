@@ -1,5 +1,5 @@
 import * as React from "react";
-import withVideoPlayer from "./with-video-player";
+import withSmallVideoPlayer from "./with-small-video-player";
 import * as Adapter from "enzyme-adapter-react-16";
 import {configure, mount, shallow} from "enzyme";
 
@@ -15,7 +15,7 @@ configure({adapter: new Adapter()});
 
 
 
-describe("test WithVideoPlayer", () => {
+describe("test WithSmallVideoPlayer", () => {
   it("should return component with video element", () => {
     const MockComponent = (props: React.PropsWithChildren<MockComponentProps>) => {
       const {handleMouseOut, handleMouseEnter, children} = props;
@@ -29,7 +29,7 @@ describe("test WithVideoPlayer", () => {
       );
     };
 
-    const WrappedMockComponent = withVideoPlayer(MockComponent);
+    const WrappedMockComponent = withSmallVideoPlayer(MockComponent);
 
     HTMLMediaElement.prototype.pause = () => {};
 
@@ -58,7 +58,7 @@ describe("test WithVideoPlayer", () => {
       );
     };
 
-    const WrappedMockComponent = withVideoPlayer(MockComponent);
+    const WrappedMockComponent = withSmallVideoPlayer(MockComponent);
 
     HTMLMediaElement.prototype.pause = () => {};
 
