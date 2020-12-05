@@ -2,18 +2,13 @@ import * as React from 'react';
 import {connect} from 'react-redux';
 import {Router, Switch, Route} from "react-router-dom";
 import history from "../../history";
-// import MoviesList from "../movies-list/movies-list";
-// import withShowMoreButton from "../../hocs/with-show-more-button/with-show-more-button";
-import {MoviesData, GlobalState, Movie} from '../../types';
+import {MoviesData, GlobalState} from '../../types';
 import {getFilteredMovies, getGenres} from "../../reducer/data/selector";
 import {getActiveGenre} from "../../reducer/app/selector";
 import {ActionCreator} from "../../reducer/app/app";
-// import GenreMenu from "../genre-menu/genre-menu";
 import {AppRoute, Genre} from "../../constants";
 import Main from "../main/main";
 import BigVideoPlayer from "../big-video-player/big-video-player";
-
-// const MoviesListWrapped = withShowMoreButton<Movie>(MoviesList)
 
 interface Props {
   moviesData: MoviesData;
