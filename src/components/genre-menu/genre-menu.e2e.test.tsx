@@ -1,5 +1,5 @@
 import * as React from "react";
-import {configure, shallow} from "enzyme";
+import {configure, shallow, mount} from "enzyme";
 import * as Adapter from "enzyme-adapter-react-16";
 
 import GenreMenu from "./genre-menu";
@@ -46,25 +46,8 @@ describe("test GenreMenu", () => {
       />
     )
 
-    tree.find(".catalog__genres-link").first().simulate("click");
+    tree.find(".catalog__genres-link").first().simulate("click", {preventDefault: () => {}});
 
     expect(testCallback).toBeCalledTimes(1);
-  })
-
-  it("click on menu item should add to it special class", () => {
-    const SPECIAL_CLASS = "catalog__genres-item--active";
-
-    const tree = shallow(
-      <GenreMenu
-        activeGenre={Genre.AllGenres}
-        genres={genres}
-        setActiveGenre={() => {}}
-      />
-    )
-
-    const menuItem = tree.find(".catalog__genres-item").at(2);
-    menuItem.simulate("click");
-
-    expect(menuItem.hasClass(SPECIAL_CLASS)).toBe(true);
   })
 })

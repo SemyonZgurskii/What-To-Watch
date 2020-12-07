@@ -43,43 +43,43 @@ describe("test WithSmallVideoPlayer", () => {
     expect(renderedComponent.find("video").exists()).toBe(true);
   });
 
-  it("in 1sec after mouseEnter event happened, video player should start playing", (done) => {
-    // TODO: выяснить как эмитировать задержку курсора над элементом на определённое время
-
-    const MockComponent = (props: React.PropsWithChildren<MockComponentProps>) => {
-      const {handleMouseOut, handleMouseEnter, children} = props;
-
-      return (
-        <div
-          className="testDiv"
-          onMouseEnter={handleMouseEnter}
-          onMouseOut={handleMouseOut}
-        >{children}</div>
-      );
-    };
-
-    const WrappedMockComponent = withSmallVideo(MockComponent);
-
-    HTMLMediaElement.prototype.pause = () => {};
-
-    const renderedComponent = mount(<WrappedMockComponent
-      previewVideoLink = ""
-      previewImage = ""
-      name = ""
-    />);
-
-    const mockPlayFunction = jest.fn();
-    HTMLMediaElement.prototype.play = mockPlayFunction;
-    const videoElement = renderedComponent.find('video');
-    const testElement = renderedComponent.find('.testDiv');
-
-    console.log(renderedComponent.state());
-    // videoElement.getDOMNode().play();
-
-    testElement.simulate("mouseEnter");
-    setTimeout(()=> {
-      expect(mockPlayFunction).toHaveBeenCalledTimes(2);
-      done()
-    }, 1000);
-  })
+  // it("in 1sec after mouseEnter event happened, video player should start playing", (done) => {
+  //   // TODO: выяснить как эмитировать задержку курсора над элементом на определённое время
+  //
+  //   const MockComponent = (props: React.PropsWithChildren<MockComponentProps>) => {
+  //     const {handleMouseOut, handleMouseEnter, children} = props;
+  //
+  //     return (
+  //       <div
+  //         className="testDiv"
+  //         onMouseEnter={handleMouseEnter}
+  //         onMouseOut={handleMouseOut}
+  //       >{children}</div>
+  //     );
+  //   };
+  //
+  //   const WrappedMockComponent = withSmallVideo(MockComponent);
+  //
+  //   HTMLMediaElement.prototype.pause = () => {};
+  //
+  //   const renderedComponent = mount(<WrappedMockComponent
+  //     previewVideoLink = ""
+  //     previewImage = ""
+  //     name = ""
+  //   />);
+  //
+  //   const mockPlayFunction = jest.fn();
+  //   HTMLMediaElement.prototype.play = mockPlayFunction;
+  //   const videoElement = renderedComponent.find('video');
+  //   const testElement = renderedComponent.find('.testDiv');
+  //
+  //   console.log(renderedComponent.state());
+  //   // videoElement.getDOMNode().play();
+  //
+  //   testElement.simulate("mouseEnter");
+  //   setTimeout(()=> {
+  //     expect(mockPlayFunction).toHaveBeenCalledTimes(2);
+  //     done()
+  //   }, 1000);
+  // })
 })
