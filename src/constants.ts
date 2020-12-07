@@ -18,4 +18,5 @@ export enum Genre {
 export enum AppRoute {
   MAIN = "/",
   PLAYER = "/play",
+  MOVIE_INFO = "/movie-info",
 }
