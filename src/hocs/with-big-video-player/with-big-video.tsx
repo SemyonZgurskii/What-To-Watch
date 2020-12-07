@@ -45,12 +45,16 @@ function withBigVideo(Component: React.ComponentType<ComponentProps>): React.Com
       }
 
       video.onplay = () => {
-        setPlayingStatus(true);
+        if (video.currentTime > 0 && !video.paused && !video.ended
+        && video.readyState > 2) {
+          setPlayingStatus(true);
+        }
       }
 
       video.onpause = () => {
         setPlayingStatus(false);
       }
+
     },[isPlaying, currentTime, duration])
 
     function handleExitButtonClick() {
