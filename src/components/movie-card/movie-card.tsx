@@ -1,5 +1,7 @@
 import * as React from 'react';
 import {Movie} from "../../types";
+import history from "../../history";
+import {AppRoute} from "../../constants";
 
 interface Props {
   name: Movie["name"],
@@ -18,12 +20,18 @@ function MovieCard(props: Props): React.ReactElement {
       <div className="small-movie-card__image"
          onMouseEnter={onMouseEnter}
          onMouseOut={onMouseOut}
-         onClick={() => onMovieCardClick(id)}
+         onClick={() => {
+           onMovieCardClick(id);
+           history.push(AppRoute.MOVIE_INFO);
+         }}
       >
         {props.children}
       </div>
       <h3 className="small-movie-card__title"
-        onClick={() => onMovieCardClick(id)}
+          onClick={() => {
+            onMovieCardClick(id);
+            history.push(AppRoute.MOVIE_INFO);
+          }}
       >
         <a className="small-movie-card__link" href="movie-page.html">{name}</a>
       </h3>
