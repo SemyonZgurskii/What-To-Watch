@@ -4,8 +4,8 @@ import * as Adapter from "enzyme-adapter-react-16";
 import {configure, mount, shallow} from "enzyme";
 
 interface MockComponentProps {
-  handleMouseOut: () => void,
-  handleMouseEnter: () => void,
+  onMouseOut: () => void,
+  onMouseEnter: () => void,
 }
 // TODO:
 //  * тест на наличие ref
@@ -15,16 +15,16 @@ configure({adapter: new Adapter()});
 
 
 
-describe("test WithSmallVideoPlayer", () => {
+describe("test withSmallVideo", () => {
   it("should return component with video element", () => {
     const MockComponent = (props: React.PropsWithChildren<MockComponentProps>) => {
-      const {handleMouseOut, handleMouseEnter, children} = props;
+      const {onMouseOut, onMouseEnter, children} = props;
 
       return (
         <div
           className="testDiv"
-          onMouseEnter={handleMouseEnter}
-          onMouseOut={handleMouseOut}
+          onMouseEnter={onMouseEnter}
+          onMouseOut={onMouseOut}
         >{children}</div>
       );
     };
@@ -47,13 +47,13 @@ describe("test WithSmallVideoPlayer", () => {
   //   // TODO: выяснить как эмитировать задержку курсора над элементом на определённое время
   //
   //   const MockComponent = (props: React.PropsWithChildren<MockComponentProps>) => {
-  //     const {handleMouseOut, handleMouseEnter, children} = props;
+  //     const {onMouseOut, onMouseEnter, children} = props;
   //
   //     return (
   //       <div
   //         className="testDiv"
-  //         onMouseEnter={handleMouseEnter}
-  //         onMouseOut={handleMouseOut}
+  //         onMouseEnter={onMouseEnter}
+  //         onMouseOut={onMouseOut}
   //       >{children}</div>
   //     );
   //   };

@@ -10,8 +10,8 @@ interface HocProps {
 
 interface ComponentProps {
   name: Movie["name"],
-  handleMouseEnter: () => void,
-  handleMouseOut: () => void,
+  onMouseEnter: () => void,
+  onMouseOut: () => void,
 }
 
 function withSmallVideo(Component: React.ComponentType<ComponentProps>): React.ComponentType<HocProps> {
@@ -44,8 +44,8 @@ function withSmallVideo(Component: React.ComponentType<ComponentProps>): React.C
     return (
       <Component
         name={name}
-        handleMouseEnter={handleMouseEnter}
-        handleMouseOut={handleMouseOut}
+        onMouseEnter={handleMouseEnter}
+        onMouseOut={handleMouseOut}
       >
         <video
           ref={video}
