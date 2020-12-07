@@ -1,5 +1,5 @@
 import * as React from "react";
-import withSmallVideoPlayer from "./with-small-video-player";
+import withSmallVideo from "./with-small-video";
 import * as Adapter from "enzyme-adapter-react-16";
 import {configure, mount, shallow} from "enzyme";
 
@@ -29,7 +29,7 @@ describe("test WithSmallVideoPlayer", () => {
       );
     };
 
-    const WrappedMockComponent = withSmallVideoPlayer(MockComponent);
+    const WrappedMockComponent = withSmallVideo(MockComponent);
 
     HTMLMediaElement.prototype.pause = () => {};
 
@@ -58,7 +58,7 @@ describe("test WithSmallVideoPlayer", () => {
       );
     };
 
-    const WrappedMockComponent = withSmallVideoPlayer(MockComponent);
+    const WrappedMockComponent = withSmallVideo(MockComponent);
 
     HTMLMediaElement.prototype.pause = () => {};
 
