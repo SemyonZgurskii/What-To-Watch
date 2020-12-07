@@ -58,7 +58,6 @@ function withBigVideo(Component: React.ComponentType<ComponentProps>): React.Com
     },[isPlaying, currentTime, duration])
 
     function handleExitButtonClick() {
-      console.log("yoyo");
       videoRef.current.src = "";
       videoRef.current.onloadeddata = null;
       videoRef.current.ontimeupdate = null;
