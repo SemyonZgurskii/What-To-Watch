@@ -1,9 +1,9 @@
 import * as React from 'react';
 import MovieCard from "../movie-card/movie-card";
 import {MoviesData} from '../../types';
-import withSmallVideoPlayer from "../../hocs/with-small-video-player/with-small-video-player";
+import withSmallVideo from "../../hocs/with-small-video-player/with-small-video";
 
-const MovieCardWrapped = withSmallVideoPlayer(MovieCard);
+const MovieCardWrapped = withSmallVideo(MovieCard);
 
 interface Props {
   processedData: MoviesData,
