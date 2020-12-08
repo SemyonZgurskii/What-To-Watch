@@ -21,6 +21,7 @@ interface Props {
   activeGenre: Genre,
   setActiveGenre: (Genre) => void,
   selectedMovie: Movie,
+  setSelectedMovieId: (id: Movie["id"]) => void,
 }
 
 class App extends React.PureComponent<Props, {}> {
@@ -28,7 +29,7 @@ class App extends React.PureComponent<Props, {}> {
 
 
   render() {
-    const {moviesData, activeGenre, genres, setActiveGenre, promoMovie, selectedMovie} = this.props;
+    const {moviesData, activeGenre, genres, setActiveGenre, promoMovie, selectedMovie, setSelectedMovieId} = this.props;
     const promo = promoMovie ? promoMovie : null;
     console.log(selectedMovie);
 
@@ -52,6 +53,7 @@ class App extends React.PureComponent<Props, {}> {
           <Route exact path={AppRoute.MOVIE_INFO}>
             <MovieInfo
               movieData={selectedMovie}
+              onPlayButtonClick={setSelectedMovieId}
             />
           </Route>
         </Switch>
@@ -72,9 +74,8 @@ function mapStateToProps(state: GlobalState) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    setActiveGenre(genre) {
-      dispatch(ActionCreator.setActiveGenre(genre));
-    }
+    setActiveGenre(genre) {dispatch(ActionCreator.setActiveGenre(genre))},
+    setSelectedMovieId(id) {dispatch(ActionCreator.setSelectedMovieId(id))},
   }
 }
 
