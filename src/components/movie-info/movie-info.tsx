@@ -1,5 +1,7 @@
 import * as React from "react";
 import {Movie} from "../../types";
+import history from "../../history";
+import {AppRoute} from "../../constants";
 
 function getVerbalRating(rating: number): string {
   const verbalRating = rating >= 8 ? "Very good" :
@@ -11,10 +13,11 @@ function getVerbalRating(rating: number): string {
 
 interface Props {
   movieData: Movie,
+  onPlayButtonClick: (id: Movie["id"]) => void
 }
 
 function MovieInfo(props: Props) {
-  const {movieData} = props;
+  const {movieData, onPlayButtonClick} = props;
   const {
     backgroundImage,
     description,
@@ -25,7 +28,8 @@ function MovieInfo(props: Props) {
     releaseDate,
     scoreCount,
     starring,
-    director
+    director,
+    id,
   } = movieData;
   const verbalRating = getVerbalRating(rating);
 
@@ -64,7 +68,12 @@ function MovieInfo(props: Props) {
               </p>
 
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
+                <button className="btn btn--play movie-card__button" type="button"
+                        onClick={() => {
+                          onPlayButtonClick(id);
+                          history.push(AppRoute.PLAYER);
+                        }}
+                >
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
