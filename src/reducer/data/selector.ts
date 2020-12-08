@@ -26,6 +26,18 @@ export const getSelectedMovie = createSelector(
   }
 )
 
+export const getSimilarMovies = createSelector(
+  getMoviesData,
+  getSelectedMovie,
+  (moviesData, selectedMovie) => {
+    if (moviesData === null || selectedMovie === null) {
+      return null
+    }
+
+    return moviesData.filter(({genre, id}) => selectedMovie.genre === genre && selectedMovie.id !== id);
+  }
+)
+
 export function getGenres(state: GlobalState): Genre[] | null {
   if (state[NameSpace.DATA].moviesData === null) {
     return null;
