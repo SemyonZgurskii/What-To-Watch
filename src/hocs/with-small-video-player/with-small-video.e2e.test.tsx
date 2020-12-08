@@ -35,6 +35,7 @@ describe("test withSmallVideo", () => {
 
 
     const renderedComponent = shallow(<WrappedMockComponent
+      id={0}
       previewVideoLink = ""
       previewImage = ""
       name = ""

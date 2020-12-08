@@ -3,6 +3,7 @@ import {Genre} from "../../constants";
 
 const initialState: State = {
   activeGenre: Genre.AllGenres,
+  selectedMovieId: null,
 }
 
 describe("test AppReducer", () => {

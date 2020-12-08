@@ -50,7 +50,9 @@ class App extends React.PureComponent<Props, {}> {
             />
           </Route>
           <Route exact path={AppRoute.MOVIE_INFO}>
-            <MovieInfo/>
+            <MovieInfo
+              movieData={selectedMovie}
+            />
           </Route>
         </Switch>
       </Router>
