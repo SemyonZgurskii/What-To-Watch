@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {Router, Switch, Route} from "react-router-dom";
 import history from "../../history";
 import {MoviesData, GlobalState, Movie} from '../../types';
-import {getFilteredMovies, getGenres, getPromoMovie, getSelectedMovie} from "../../reducer/data/selector";
+import {getFilteredMovies, getGenres, getPromoMovie, getSelectedMovie, getSimilarMovies} from "../../reducer/data/selector";
 import {getActiveGenre} from "../../reducer/app/selector";
 import {ActionCreator} from "../../reducer/app/app";
 import {AppRoute, Genre} from "../../constants";
@@ -22,14 +22,23 @@ interface Props {
   setActiveGenre: (Genre) => void,
   selectedMovie: Movie,
   setSelectedMovieId: (id: Movie["id"]) => void,
+  similarMovies: MoviesData,
 }
 
 class App extends React.PureComponent<Props, {}> {
   static defaultProps = {moviesData: null};
 
-
   render() {
-    const {moviesData, activeGenre, genres, setActiveGenre, promoMovie, selectedMovie, setSelectedMovieId} = this.props;
+    const {
+      moviesData,
+      activeGenre,
+      genres,
+      setActiveGenre,
+      promoMovie,
+      selectedMovie,
+      setSelectedMovieId,
+      similarMovies
+    } = this.props;
     const promo = promoMovie ? promoMovie : null;
     console.log(selectedMovie);
 
@@ -52,7 +61,7 @@ class App extends React.PureComponent<Props, {}> {
           </Route>
           <Route exact path={AppRoute.MOVIE_INFO}>
             <MovieInfo
-              moviesData={moviesData}
+              moviesData={similarMovies}
               movieData={selectedMovie}
               onPlayButtonClick={setSelectedMovieId}
             />
@@ -70,6 +79,7 @@ function mapStateToProps(state: GlobalState) {
     activeGenre: getActiveGenre(state),
     genres: getGenres(state),
     selectedMovie: getSelectedMovie(state),
+    similarMovies: getSimilarMovies(state),
   }
 }
 
