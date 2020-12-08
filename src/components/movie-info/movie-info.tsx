@@ -1,11 +1,6 @@
 import * as React from "react";
 import {Movie} from "../../types";
 
-// от 0 до 3 — Bad.
-//   от 3 до 5 — Normal.
-//   от 5 до 8 — Good.
-//   от 8 до 10 — Very good.
-// 10 — Awesome.
 function getVerbalRating(rating: number): string {
   const verbalRating = rating >= 8 ? "Very good" :
     5 <= rating && rating < 8 ? "Good" :

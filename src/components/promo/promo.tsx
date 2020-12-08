@@ -2,15 +2,18 @@ import * as React from "react";
 import history from "../../history";
 import {AppRoute} from "../../constants";
 import {Movie} from "../../types";
+import {ActionCreator} from "../../reducer/app/app";
+import {connect} from "react-redux";
 
 interface Props {
   promoMovie: Movie,
   children: React.ReactNode,
+  onPlayButtonClick: (id: Movie["id"]) => void;
 }
 
 function Promo(props: Props) {
-  const {promoMovie, children} = props;
-  const {posterImage, releaseDate, genre, name, backgroundImage} = promoMovie;
+const {promoMovie, children, onPlayButtonClick} = props;
+  const {posterImage, releaseDate, genre, name, backgroundImage, id} = promoMovie;
 
   return (
     <section className="movie-card">
@@ -38,7 +41,10 @@ function Promo(props: Props) {
 
             <div className="movie-card__buttons">
               <button
-                onClick={() => history.push(AppRoute.PLAYER)}
+                onClick={() => {
+                  onPlayButtonClick(id);
+                  history.push(AppRoute.PLAYER)}
+                }
                 className="btn btn--play movie-card__button"
                 type="button"
               >
@@ -61,4 +67,12 @@ function Promo(props: Props) {
   )
 }
 
-export default Promo;
+function mapDispatchToProps(dispatch) {
+  return {
+    onPlayButtonClick(id) {
+      dispatch(ActionCreator.setSelectedMovieId(id))
+    }
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Promo);

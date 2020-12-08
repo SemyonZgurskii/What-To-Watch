@@ -37,7 +37,7 @@ class App extends React.PureComponent<Props, {}> {
         <Switch>
           <Route exact path={AppRoute.MAIN}>
             <Main
-              promoMovie={promoMovie}
+              promoMovie={promo}
               moviesData={moviesData}
               genres={genres}
               activeGenre={activeGenre}
@@ -46,7 +46,7 @@ class App extends React.PureComponent<Props, {}> {
           </Route>
           <Route exact path={AppRoute.PLAYER}>
             <BigVideoPlayerWrapped
-              movieData={promo}
+              movieData={selectedMovie}
             />
           </Route>
           <Route exact path={AppRoute.MOVIE_INFO}>
