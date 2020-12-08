@@ -1,7 +1,8 @@
 import * as React from "react";
-import {Movie} from "../../types";
+import {Movie, MoviesData} from "../../types";
 import history from "../../history";
 import {AppRoute} from "../../constants";
+import MoreLikeThis from "../more-like-this/more-like-this";
 
 function getVerbalRating(rating: number): string {
   const verbalRating = rating >= 8 ? "Very good" :
@@ -14,10 +15,11 @@ function getVerbalRating(rating: number): string {
 interface Props {
   movieData: Movie,
   onPlayButtonClick: (id: Movie["id"]) => void
+  moviesData: MoviesData,
 }
 
 function MovieInfo(props: Props) {
-  const {movieData, onPlayButtonClick} = props;
+  const {movieData, onPlayButtonClick, moviesData} = props;
   const {
     backgroundImage,
     description,
@@ -116,7 +118,7 @@ function MovieInfo(props: Props) {
                 <div className="movie-rating__score">{rating}</div>
                 <p className="movie-rating__meta">
                   <span className="movie-rating__level">{verbalRating}</span>
-                  <span className="movie-rating__count">{scoreCount}</span>
+                  <span className="movie-rating__count">{`${scoreCount} ratings`}</span>
                 </p>
               </div>
 
@@ -125,7 +127,7 @@ function MovieInfo(props: Props) {
 
                 <p className="movie-card__director"><strong>Director: {director}</strong></p>
 
-                <p className="movie-card__starring"><strong>Starring: {starring}</strong></p>
+                <p className="movie-card__starring"><strong>Starring: {starring.join(`, `)}</strong></p>
               </div>
             </div>
           </div>
@@ -133,47 +135,10 @@ function MovieInfo(props: Props) {
       </section>
 
       <div className="page-content">
-        <section className="catalog catalog--like-this">
-          <h2 className="catalog__title">More like this</h2>
 
-          <div className="catalog__movies-list">
-            <article className="small-movie-card catalog__movies-card">
-              <div className="small-movie-card__image">
-                <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt="Fantastic Beasts: The Crimes of Grindelwald" width="280" height="175"/>
-              </div>
-              <h3 className="small-movie-card__title">
-                <a className="small-movie-card__link" href="movie-page.html">Fantastic Beasts: The Crimes of Grindelwald</a>
-              </h3>
-            </article>
-
-            <article className="small-movie-card catalog__movies-card">
-              <div className="small-movie-card__image">
-                <img src="img/bohemian-rhapsody.jpg" alt="Bohemian Rhapsody" width="280" height="175"/>
-              </div>
-              <h3 className="small-movie-card__title">
-                <a className="small-movie-card__link" href="movie-page.html">Bohemian Rhapsody</a>
-              </h3>
-            </article>
-
-            <article className="small-movie-card catalog__movies-card">
-              <div className="small-movie-card__image">
-                <img src="img/macbeth.jpg" alt="Macbeth" width="280" height="175"/>
-              </div>
-              <h3 className="small-movie-card__title">
-                <a className="small-movie-card__link" href="movie-page.html">Macbeth</a>
-              </h3>
-            </article>
-
-            <article className="small-movie-card catalog__movies-card">
-              <div className="small-movie-card__image">
-                <img src="img/aviator.jpg" alt="Aviator" width="280" height="175"/>
-              </div>
-              <h3 className="small-movie-card__title">
-                <a className="small-movie-card__link" href="movie-page.html">Aviator</a>
-              </h3>
-            </article>
-          </div>
-        </section>
+        <MoreLikeThis
+          moviesData={moviesData}
+        />
 
         <footer className="page-footer">
           <div className="logo">

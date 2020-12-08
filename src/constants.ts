@@ -1,6 +1,7 @@
-export const BASIC_MOVIES_COUNT: number = 8;
-export const MOVIES_PER_CLICK: number = 8;
-export const MAX_GENRES_COUNT: number = 9;
+export const BASIC_MOVIES_COUNT = 8;
+export const MOVIES_PER_CLICK = 8;
+export const MAX_GENRES_COUNT = 9;
+export const MAX_SIMILAR_MOVIES_COUNT= 4;
 
 export enum Genre {
   AllGenres = "All genres",
