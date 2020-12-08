@@ -2,6 +2,8 @@ import * as React from 'react';
 import {Movie} from "../../types";
 import history from "../../history";
 import {AppRoute} from "../../constants";
+import {connect} from "react-redux";
+import {ActionCreator} from "../../reducer/app/app";
 
 interface Props {
   name: Movie["name"],
@@ -39,4 +41,12 @@ function MovieCard(props: Props): React.ReactElement {
   );
 }
 
-export default MovieCard;
+function mapDispatchToProps(dispatch) {
+  return {
+    onMovieCardClick(id) {
+      dispatch(ActionCreator.setSelectedMovieId(id))
+    }
+  }
+}
+
+export default connect(null, mapDispatchToProps)(MovieCard);

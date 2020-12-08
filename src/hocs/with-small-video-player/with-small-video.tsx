@@ -6,17 +6,19 @@ interface HocProps {
   previewImage: Movie["previewImage"],
   name: Movie["name"],
   previewVideoLink: Movie["previewVideoLink"],
+  id: Movie["id"];
 }
 
 interface ComponentProps {
   name: Movie["name"],
   onMouseEnter: () => void,
   onMouseOut: () => void,
+  id: Movie["id"];
 }
 
 function withSmallVideo(Component: React.ComponentType<ComponentProps>): React.ComponentType<HocProps> {
   return function (props) {
-    const {name, previewVideoLink, previewImage} = props;
+    const {name, previewVideoLink, previewImage, id} = props;
     const video: React.RefObject<HTMLVideoElement> = React.createRef();
     let timerId: ReturnType<typeof setTimeout>;
 
@@ -46,6 +48,7 @@ function withSmallVideo(Component: React.ComponentType<ComponentProps>): React.C
         name={name}
         onMouseEnter={handleMouseEnter}
         onMouseOut={handleMouseOut}
+        id={id}
       >
         <video
           ref={video}

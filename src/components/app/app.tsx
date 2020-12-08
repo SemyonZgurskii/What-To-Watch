@@ -3,13 +3,14 @@ import {connect} from 'react-redux';
 import {Router, Switch, Route} from "react-router-dom";
 import history from "../../history";
 import {MoviesData, GlobalState, Movie} from '../../types';
-import {getFilteredMovies, getGenres, getPromoMovie} from "../../reducer/data/selector";
+import {getFilteredMovies, getGenres, getPromoMovie, getSelectedMovie} from "../../reducer/data/selector";
 import {getActiveGenre} from "../../reducer/app/selector";
 import {ActionCreator} from "../../reducer/app/app";
 import {AppRoute, Genre} from "../../constants";
 import Main from "../main/main";
 import BigVideoPlayer from "../big-video-player/big-video-player";
 import withBigVideo from "../../hocs/with-big-video-player/with-big-video";
+import MovieInfo from "../movie-info/movie-info";
 
 const BigVideoPlayerWrapped = withBigVideo(BigVideoPlayer);
 
@@ -19,6 +20,7 @@ interface Props {
   genres: Genre[],
   activeGenre: Genre,
   setActiveGenre: (Genre) => void,
+  selectedMovie: Movie,
 }
 
 class App extends React.PureComponent<Props, {}> {
@@ -26,8 +28,9 @@ class App extends React.PureComponent<Props, {}> {
 
 
   render() {
-    const {moviesData, activeGenre, genres, setActiveGenre, promoMovie} = this.props;
+    const {moviesData, activeGenre, genres, setActiveGenre, promoMovie, selectedMovie} = this.props;
     const promo = promoMovie ? promoMovie : null;
+    console.log(selectedMovie);
 
     return (
       <Router history={history}>
@@ -46,6 +49,9 @@ class App extends React.PureComponent<Props, {}> {
               movieData={promo}
             />
           </Route>
+          <Route exact path={AppRoute.MOVIE_INFO}>
+            <MovieInfo/>
+          </Route>
         </Switch>
       </Router>
     );
@@ -58,6 +64,7 @@ function mapStateToProps(state: GlobalState) {
     moviesData: getFilteredMovies(state),
     activeGenre: getActiveGenre(state),
     genres: getGenres(state),
+    selectedMovie: getSelectedMovie(state),
   }
 }
 

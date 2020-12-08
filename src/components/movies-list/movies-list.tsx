@@ -17,7 +17,7 @@ function MoviesList(props: Props): React.ReactElement {
     <>
       <div className="catalog__movies-list">
         {processedData.map((movieData) => {
-          const {previewImage, name, id, previewVideoLink} = movieData;
+          const {previewImage, name, id, previewVideoLink, } = movieData;
 
           return (
             <MovieCardWrapped
@@ -25,6 +25,7 @@ function MoviesList(props: Props): React.ReactElement {
               previewImage={previewImage}
               previewVideoLink={previewVideoLink}
               name={name}
+              id={id}
             />
           )
         })}
