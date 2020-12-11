@@ -136,9 +136,11 @@ function MovieInfo(props: Props) {
 
       <div className="page-content">
 
-        <MoreLikeThis
-          moviesData={moviesData}
-        />
+        {moviesData.length > 1 &&
+          <MoreLikeThis
+            moviesData={moviesData}
+          />
+        }
 
         <footer className="page-footer">
           <div className="logo">
