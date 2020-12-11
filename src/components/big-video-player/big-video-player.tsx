@@ -2,6 +2,8 @@ import * as React from "react";
 import history from "../../history";
 import {AppRoute} from "../../constants";
 
+// TODO: при нажатии кнопки Exit необходимо учитывать экран на котором
+
 function formatTimeDuration(basicValue: number): string {
   const hours = Math.floor(basicValue / (60 * 60));
   const minutes = Math.floor((basicValue % (60 * 60)) / 60);
@@ -60,7 +62,7 @@ function BigVideoPlayer(props: Props) {
       <button type="button" className="player__exit"
               onClick={() => {
                 onExitButtonClick();
-                history.push(AppRoute.MAIN);
+                history.goBack();
               }}
       >Exit</button>
 
