@@ -1,5 +1,5 @@
 import NameSpace from '../name-space';
-import {GlobalState, Movie, MoviesData} from "../../types";
+import {Reviews, GlobalState, Movie, MoviesData} from "../../types";
 import {Genre} from "../../constants";
 import {createSelector} from "reselect";
 import {getActiveGenre, getSelectedMovieId} from "../app/selector";
@@ -12,6 +12,10 @@ export function getMoviesData(state: GlobalState): MoviesData {
 
 export function getPromoMovie(state: GlobalState): Movie {
   return state[NAME_SPACE].promoMovie;
+}
+
+export function getMovieReviews(state: GlobalState): Reviews {
+  return state[NAME_SPACE].selectedMovieReviews;
 }
 
 export const getSelectedMovie = createSelector(
