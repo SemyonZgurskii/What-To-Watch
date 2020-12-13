@@ -40,7 +40,6 @@ class App extends React.PureComponent<Props, {}> {
       similarMovies
     } = this.props;
     const promo = promoMovie ? promoMovie : null;
-    console.log(selectedMovie);
 
     return (
       <Router history={history}>
