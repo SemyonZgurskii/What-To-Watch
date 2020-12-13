@@ -23,6 +23,18 @@ export type Movie = Readonly<{
   videoLink: string,
 }>
 
+export type Review = Readonly<{
+  id: number,
+  user: {
+    id: number,
+    name: string,
+  },
+  rating: number,
+  comment: string,
+  date: string,
+}>
+
+export type Reviews = ReadonlyArray<Review>;
 
 export type MoviesData = Readonly<Array<Movie>> | null;
 
