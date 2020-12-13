@@ -6,7 +6,8 @@ import thunkMiddleware from 'redux-thunk';
 
 import App from './components/app/app';
 import {createAPI} from './api';
-import {Operation} from './reducer/data/data';
+import {Operation as DataOperation} from './reducer/data/data';
+import {Operation as UserOperation} from "./reducer/user/user";
 import reducer from "./reducer/reducer";
 
 
@@ -16,8 +17,9 @@ const store = createStore(
   applyMiddleware(thunkMiddleware.withExtraArgument(api))
 );
 
-store.dispatch(Operation.loadMoviesData());
-store.dispatch(Operation.loadPromoMovie());
+store.dispatch(DataOperation.loadMoviesData());
+store.dispatch(DataOperation.loadPromoMovie());
+store.dispatch(UserOperation.checkAuth());
 
 ReactDom.render(
   <Provider store={store}>
