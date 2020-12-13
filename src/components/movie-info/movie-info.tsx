@@ -3,14 +3,9 @@ import {Movie, MoviesData} from "../../types";
 import history from "../../history";
 import {AppRoute} from "../../constants";
 import MoreLikeThis from "../more-like-this/more-like-this";
+import InfoDescription from "../info-description/info-description";
+import {Link} from "react-router-dom";
 
-function getVerbalRating(rating: number): string {
-  const verbalRating = rating >= 8 ? "Very good" :
-    5 <= rating && rating < 8 ? "Good" :
-    3 <= rating && rating < 5 ? "Normal" : "Bad"
-
-  return verbalRating;
-}
 
 interface Props {
   movieData: Movie,
@@ -22,18 +17,12 @@ function MovieInfo(props: Props) {
   const {movieData, onPlayButtonClick, moviesData} = props;
   const {
     backgroundImage,
-    description,
     genre,
     name,
     posterImage,
-    rating,
     releaseDate,
-    scoreCount,
-    starring,
-    director,
     id,
   } = movieData;
-  const verbalRating = getVerbalRating(rating);
 
   return (
     <>
@@ -47,11 +36,13 @@ function MovieInfo(props: Props) {
 
           <header className="page-header movie-card__head">
             <div className="logo">
-              <a href="main.html" className="logo__link">
+              <Link href="#" className="logo__link"
+                    to={AppRoute.MAIN}
+              >
                 <span className="logo__letter logo__letter--1">W</span>
                 <span className="logo__letter logo__letter--2">T</span>
                 <span className="logo__letter logo__letter--3">W</span>
-              </a>
+              </Link>
             </div>
 
             <div className="user-block">
@@ -99,37 +90,10 @@ function MovieInfo(props: Props) {
               <img src={posterImage} alt={name} width="218" height="327"/>
             </div>
 
-            <div className="movie-card__desc">
-              <nav className="movie-nav movie-card__nav">
-                <ul className="movie-nav__list">
-                  <li className="movie-nav__item movie-nav__item--active">
-                    <a href="#" className="movie-nav__link">Overview</a>
-                  </li>
-                  <li className="movie-nav__item">
-                    <a href="#" className="movie-nav__link">Details</a>
-                  </li>
-                  <li className="movie-nav__item">
-                    <a href="#" className="movie-nav__link">Reviews</a>
-                  </li>
-                </ul>
-              </nav>
+            <InfoDescription
+              movieData={movieData}
+            />
 
-              <div className="movie-rating">
-                <div className="movie-rating__score">{rating}</div>
-                <p className="movie-rating__meta">
-                  <span className="movie-rating__level">{verbalRating}</span>
-                  <span className="movie-rating__count">{`${scoreCount} ratings`}</span>
-                </p>
-              </div>
-
-              <div className="movie-card__text">
-                <p>{description}</p>
-
-                <p className="movie-card__director"><strong>Director: {director}</strong></p>
-
-                <p className="movie-card__starring"><strong>Starring: {starring.join(`, `)}</strong></p>
-              </div>
-            </div>
           </div>
         </div>
       </section>
