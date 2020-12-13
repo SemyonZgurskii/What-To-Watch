@@ -1,4 +1,4 @@
-import {MoviesData, Movie} from "../../types";
+import {MoviesData, Movie, Reviews} from "../../types";
 import {convertData} from "../../adapter/data";
 import {Dispatch} from "redux";
 import {AxiosInstance} from "axios";
@@ -6,6 +6,7 @@ import {AxiosInstance} from "axios";
 export interface State {
   moviesData: MoviesData | null,
   promoMovie: Movie,
+  selectedMovieReviews: Reviews,
 }
 
 type PropertiesType<T> = T extends {[key: string]: infer U} ? U : never;
@@ -13,12 +14,14 @@ type Action = ReturnType<PropertiesType<typeof ActionCreator>>
 
 const initialState: State = {
   moviesData: null,
-  promoMovie: null
+  promoMovie: null,
+  selectedMovieReviews: null,
 }
 
 enum ActionType {
   LOAD_MOVIES_DATA = "LOAD_MOVIES_DATA",
   LOAD_PROMO_MOVIE = "LOAD_PROMO_MOVIE",
+  LOAD_MOVIE_REVIEWS = "LOAD_MOVIE_REVIEWS",
 }
 
 const ActionCreator = {
@@ -33,7 +36,13 @@ const ActionCreator = {
       type: ActionType.LOAD_PROMO_MOVIE,
       payload: movie,
     } as const
-  }
+  },
+  setSelectedMovieReviews: (reviews) => {
+    return {
+      type: ActionType.LOAD_MOVIE_REVIEWS,
+      payload: reviews,
+    } as const
+  },
 }
 
 const Operation = {
@@ -48,6 +57,12 @@ const Operation = {
       .then((response) => {
         dispatch(ActionCreator.setPromoMovie(convertData(response.data)));
       })
+  },
+  loadMovieReviews: (movieId: Movie["id"]) => (dispatch: Dispatch, getState: () => State, api: AxiosInstance) => {
+    return api.get(`/comments/${movieId}`)
+      .then((response) => {
+        dispatch(ActionCreator.setSelectedMovieReviews(response.data));
+      })
   }
 }
 
@@ -57,6 +72,8 @@ function reducer(state: State = initialState, action: Action): State {
       return {...state, moviesData: action.payload};
     case ActionType.LOAD_PROMO_MOVIE:
       return {...state, promoMovie: action.payload}
+    case ActionType.LOAD_MOVIE_REVIEWS:
+      return  {...state, selectedMovieReviews: action.payload}
     default:
       return state;
   }
