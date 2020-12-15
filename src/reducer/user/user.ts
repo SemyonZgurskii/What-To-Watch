@@ -1,6 +1,13 @@
 const AuthorizationStatus = {
   AUTH: "AUTH",
   NO_AUTH: "NO_AUTH",
+} as const
+
+type PropertiesType<T> = T extends {[key: string]: infer U} ? U : never;
+type Action = ReturnType<PropertiesType<typeof ActionCreator>>
+
+export interface State {
+  authorizationStatus: typeof AuthorizationStatus;
 }
 
 const initialState = {
@@ -16,7 +23,7 @@ const ActionCreator = {
     return {
       type: ActionType.REQUIRE_AUTHORIZATION,
       payload: status,
-    }
+    } as const
   }
 }
 
@@ -28,8 +35,8 @@ const Operation = {
   }
 }
 
-function reducer(state, action) {
-  switch(action) {
+function reducer(state = initialState, action: Action) {
+  switch(action.type) {
     case ActionType.REQUIRE_AUTHORIZATION:
       return {...state, authorizationStatus: action.payload}
     default:
@@ -37,4 +44,4 @@ function reducer(state, action) {
   }
 }
 
-export {reducer, Operation};
+export {reducer, Operation, AuthorizationStatus};
