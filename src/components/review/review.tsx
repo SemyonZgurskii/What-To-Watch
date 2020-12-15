@@ -1,5 +1,6 @@
 import * as React from "react";
 import {Review} from "../../types";
+import {getFormatDate, getDateTime} from "../../utils";
 
 interface Props {
   review: Review,
@@ -9,6 +10,8 @@ function Review(props: Props) {
   const {review} = props;
   const {rating, comment, date, user} = review;
   const {name} = user;
+  const formatDate = getFormatDate(date);
+  const dateTime = getDateTime(date)
 
   return (
     <div className="review">
@@ -17,7 +20,7 @@ function Review(props: Props) {
 
         <footer className="review__details">
           <cite className="review__author">{name}</cite>
-          <time className="review__date" dateTime="2016-12-24">{date}</time>
+          <time className="review__date" dateTime={dateTime}>{formatDate}</time>
         </footer>
       </blockquote>
 

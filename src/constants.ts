@@ -21,3 +21,5 @@ export enum AppRoute {
   PLAYER = "/play",
   MOVIE_INFO = "/movie-info",
 }
+
+export const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
