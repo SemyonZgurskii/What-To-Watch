@@ -1,7 +1,10 @@
 import {State as dataState} from "./reducer/data/data";
 import {State as appState} from "./reducer/app/app";
+import {State as userState} from "./reducer/user/user"
 import NameSpace from "./reducer/name-space";
 import {Genre} from "./constants";
+
+export type PropertiesType<T> = T extends {[key: string]: infer U} ? U : never;
 
 export type Movie = Readonly<{
   backgroundColor: string,
@@ -41,4 +44,5 @@ export type MoviesData = Readonly<Array<Movie>> | null;
 export interface GlobalState {
   [NameSpace.APP]: appState,
   [NameSpace.DATA]: dataState,
+  [NameSpace.USER]: userState,
 }
