@@ -12,6 +12,7 @@ import BigVideoPlayer from "../big-video-player/big-video-player";
 import withBigVideo from "../../hocs/with-big-video-player/with-big-video";
 import MovieInfo from "../movie-info/movie-info";
 import SignIn from "../sign-in/sign-in";
+import {Operation} from "../../reducer/user/user";
 
 const BigVideoPlayerWrapped = withBigVideo(BigVideoPlayer);
 
@@ -24,6 +25,7 @@ interface Props {
   selectedMovie: Movie,
   setSelectedMovieId: (id: Movie["id"]) => void,
   similarMovies: MoviesData,
+  login: ({email, password}: {email: string, password: string}) => void,
 }
 
 class App extends React.PureComponent<Props, {}> {
@@ -38,7 +40,8 @@ class App extends React.PureComponent<Props, {}> {
       promoMovie,
       selectedMovie,
       setSelectedMovieId,
-      similarMovies
+      similarMovies,
+      login
     } = this.props;
     const promo = promoMovie ? promoMovie : null;
 
@@ -67,7 +70,9 @@ class App extends React.PureComponent<Props, {}> {
             />
           </Route>
           <Route exart path={AppRoute.SIGN_IN}>
-            <SignIn/>
+            <SignIn
+              login={login}
+            />
           </Route>
         </Switch>
       </Router>
@@ -90,6 +95,7 @@ function mapDispatchToProps(dispatch) {
   return {
     setActiveGenre(genre) {dispatch(ActionCreator.setActiveGenre(genre))},
     setSelectedMovieId(id) {dispatch(ActionCreator.setSelectedMovieId(id))},
+    login(authData) {dispatch(Operation.login(authData))}
   }
 }
 
