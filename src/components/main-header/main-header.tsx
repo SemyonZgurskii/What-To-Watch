@@ -45,7 +45,9 @@ function MainHeader(props: Props) {
               <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
             </div>}
           {authorizationStatus === AuthorizationStatus.NO_AUTH &&
-          <a href="sign-in.html" className="user-block__link">Sign in</a>}
+          <Link href="sign-in.html" className="user-block__link"
+                to={AppRoute.SIGN_IN}
+          >Sign in</Link>}
       </div>
     </header>
   )
