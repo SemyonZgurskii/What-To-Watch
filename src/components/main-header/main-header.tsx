@@ -1,23 +1,60 @@
 import * as React from "react";
+import {Link, useLocation} from "react-router-dom";
+import {connect} from "react-redux";
+import { AppRoute } from "../../constants";
+import {AuthorizationStatus} from "../../reducer/user/user";
+import {GlobalState, PropertiesType} from "../../types";
+import {getAuthorizationStatus} from "../../reducer/user/selector";
 
-function MainHeader() {
+interface Props {
+  authorizationStatus: PropertiesType<typeof AuthorizationStatus>;
+}
+
+function MainHeader(props: Props) {
+  const {authorizationStatus} = props;
+
+  const location = useLocation();
+
+  function renderLogoContent() {
+    return (
+      <>
+        <span className="logo__letter logo__letter--1">W</span>
+        <span className="logo__letter logo__letter--2">T</span>
+        <span className="logo__letter logo__letter--3">W</span>
+      </>
+    )
+  }
+
+  function renderLogoLink(location, content) {
+    if (location === AppRoute.MAIN) {
+      return <a className="logo__link">{content()}</a>
+    }
+
+    return <Link to={AppRoute.MAIN} className="logo__link">{content()}</Link>
+  }
+
   return (
     <header className="page-header movie-card__head">
       <div className="logo">
-        <a className="logo__link">
-          <span className="logo__letter logo__letter--1">W</span>
-          <span className="logo__letter logo__letter--2">T</span>
-          <span className="logo__letter logo__letter--3">W</span>
-        </a>
+        {renderLogoLink(location.pathname, renderLogoContent)}
       </div>
 
       <div className="user-block">
-        <div className="user-block__avatar">
-          <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-        </div>
+          {authorizationStatus === AuthorizationStatus.AUTH &&
+            <div className="user-block__avatar">
+              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
+            </div>}
+          {authorizationStatus === AuthorizationStatus.NO_AUTH &&
+          <a href="sign-in.html" className="user-block__link">Sign in</a>}
       </div>
     </header>
   )
 }
 
-export default MainHeader;
+function mapStateToProps(state: GlobalState) {
+  return {
+    authorizationStatus: getAuthorizationStatus(state),
+  }
+}
+
+export default connect(mapStateToProps)(MainHeader);
