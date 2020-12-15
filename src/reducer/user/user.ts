@@ -32,6 +32,15 @@ const Operation = {
     return api.get("/login")
       .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
       .catch((error) => {throw error});
+  },
+
+  login: (authData) => (dispatch, getState, api) => {
+    return api.post("/login", {
+      email: authData.email,
+      password: authData.password,
+    })
+      .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
+      .catch((error) => {throw error})
   }
 }
 
