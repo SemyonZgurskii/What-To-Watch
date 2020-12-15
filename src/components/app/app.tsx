@@ -11,6 +11,7 @@ import Main from "../main/main";
 import BigVideoPlayer from "../big-video-player/big-video-player";
 import withBigVideo from "../../hocs/with-big-video-player/with-big-video";
 import MovieInfo from "../movie-info/movie-info";
+import SignIn from "../sign-in/sign-in";
 
 const BigVideoPlayerWrapped = withBigVideo(BigVideoPlayer);
 
@@ -64,6 +65,9 @@ class App extends React.PureComponent<Props, {}> {
               movieData={selectedMovie}
               onPlayButtonClick={setSelectedMovieId}
             />
+          </Route>
+          <Route exart path={AppRoute.SIGN_IN}>
+            <SignIn/>
           </Route>
         </Switch>
       </Router>
