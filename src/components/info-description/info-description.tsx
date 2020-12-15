@@ -50,7 +50,6 @@ function InfoDescription(props: Props) {
         />
       }
 
-      {/*// TODO: создать запрос на сервер для получения ревью, затем встроить их в код*/}
       {activeItem === MenuItem.REVIEWS &&
         <Reviews
           id={id}
