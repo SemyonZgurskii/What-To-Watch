@@ -4,32 +4,34 @@ import {connect} from "react-redux";
 import {Reviews, GlobalState, Movie} from "../../types";
 import {Operation} from "../../reducer/data/data";
 import {getMovieReviews} from "../../reducer/data/selector";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 
 interface Props {
   reviews: Reviews,
   loadReviews: (id) => void,
   id: Movie["id"],
 }
-// TODO: выяснить почему компонент перерендеривается при смене вкладок меню InfoMenu
+
 function Reviews(props: Props) {
   const {reviews, loadReviews, id} = props;
 
+  const [leftSideReviews, setLeftSideReviews] = useState(null);
+  const [rightSideReviews, setRightSideReviews] = useState(null);
+
   useEffect(() => loadReviews(id), [id]);
 
-  let leftSideReviews: Reviews;
-  let rightSideReviews: Reviews;
-
-  if (reviews && reviews.length >= 2) {
-    leftSideReviews = reviews.slice(0, Math.floor(reviews.length/2));
-    rightSideReviews = reviews.slice(Math.floor(reviews.length/2), reviews.length - 1);
-  } else {
-    leftSideReviews = reviews;
-  }
+  useEffect(() => {
+    if (reviews.length >= 2) {
+      setLeftSideReviews(reviews.slice(0, Math.floor(reviews.length/2)));
+      setRightSideReviews(reviews.slice(Math.floor(reviews.length/2), reviews.length - 1));
+    } else {
+      setLeftSideReviews(reviews);
+    }
+  }, [reviews]);
 
   return (
     <>
-      {reviews &&
+      {leftSideReviews &&
 
       <div className="movie-card__reviews movie-card__row">
 
