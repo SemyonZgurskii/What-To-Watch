@@ -39,6 +39,11 @@ export type Review = Readonly<{
 
 export type Reviews = ReadonlyArray<Review>;
 
+export interface PostReviewData {
+  rating: number,
+  comment: string,
+}
+
 export type MoviesData = Readonly<Array<Movie>> | null;
 
 export interface GlobalState {
