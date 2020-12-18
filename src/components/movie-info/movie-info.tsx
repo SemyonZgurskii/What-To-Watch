@@ -7,7 +7,6 @@ import InfoDescription from "../info-description/info-description";
 import {Link} from "react-router-dom";
 import MainHeader from "../main-header/main-header";
 
-
 interface Props {
   movieData: Movie,
   onPlayButtonClick: (id: Movie["id"]) => void
@@ -63,7 +62,9 @@ function MovieInfo(props: Props) {
                   </svg>
                   <span>My list</span>
                 </button>
-                <a href="add-review.html" className="btn movie-card__button">Add review</a>
+                <Link href="add-review.html" className="btn movie-card__button"
+                      to={AppRoute.ADD_REVIEW}
+                >Add review</Link>
               </div>
             </div>
           </div>
