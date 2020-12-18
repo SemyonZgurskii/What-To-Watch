@@ -2,7 +2,7 @@ import * as React from 'react';
 import {connect} from 'react-redux';
 import {Router, Switch, Route} from "react-router-dom";
 import history from "../../history";
-import {MoviesData, GlobalState, Movie} from '../../types';
+import {MoviesData, GlobalState, Movie, PostReviewData} from '../../types';
 import {getFilteredMovies, getGenres, getPromoMovie, getSelectedMovie, getSimilarMovies} from "../../reducer/data/selector";
 import {getActiveGenre} from "../../reducer/app/selector";
 import {ActionCreator} from "../../reducer/app/app";
@@ -12,7 +12,10 @@ import BigVideoPlayer from "../big-video-player/big-video-player";
 import withBigVideo from "../../hocs/with-big-video-player/with-big-video";
 import MovieInfo from "../movie-info/movie-info";
 import SignIn from "../sign-in/sign-in";
-import {Operation} from "../../reducer/user/user";
+import {Operation as userOperation} from "../../reducer/user/user";
+import {Operation as dataOperation} from "../../reducer/data/data";
+import AddReview from "../add-review/add-review";
+import MyList from "../my-list/my-list";
 
 const BigVideoPlayerWrapped = withBigVideo(BigVideoPlayer);
 
@@ -26,6 +29,7 @@ interface Props {
   setSelectedMovieId: (id: Movie["id"]) => void,
   similarMovies: MoviesData,
   login: ({email, password}: {email: string, password: string}) => void,
+  updateMovieReviews: (movieId: number, review: PostReviewData) => void,
 }
 
 class App extends React.PureComponent<Props, {}> {
@@ -41,7 +45,8 @@ class App extends React.PureComponent<Props, {}> {
       selectedMovie,
       setSelectedMovieId,
       similarMovies,
-      login
+      login,
+      updateMovieReviews,
     } = this.props;
     const promo = promoMovie ? promoMovie : null;
 
@@ -74,6 +79,15 @@ class App extends React.PureComponent<Props, {}> {
               login={login}
             />
           </Route>
+          <Route exart path={AppRoute.ADD_REVIEW}>
+            <AddReview
+              movieData={selectedMovie}
+              postReview={updateMovieReviews}
+            />
+          </Route>
+          <Route exart path={AppRoute.MY_LIST}>
+            <MyList moviesData={userMoviesData}/>
+          </Route>
         </Switch>
       </Router>
     );
@@ -95,7 +109,8 @@ function mapDispatchToProps(dispatch) {
   return {
     setActiveGenre(genre) {dispatch(ActionCreator.setActiveGenre(genre))},
     setSelectedMovieId(id) {dispatch(ActionCreator.setSelectedMovieId(id))},
-    login(authData) {dispatch(Operation.login(authData))}
+    login(authData) {dispatch(userOperation.login(authData))},
+    updateMovieReviews(id, reviewData) {dispatch(dataOperation.updateMovieReviews(id, reviewData))},
   }
 }
 
