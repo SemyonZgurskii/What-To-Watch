@@ -15,7 +15,7 @@ type Action = ReturnType<PropertiesType<typeof ActionCreator>>
 const initialState: State = {
   moviesData: null,
   promoMovie: null,
-  selectedMovieReviews: null,
+  selectedMovieReviews: [],
 }
 
 enum ActionType {
@@ -61,6 +61,16 @@ const Operation = {
   loadMovieReviews: (movieId: Movie["id"]) => (dispatch: Dispatch, getState: () => State, api: AxiosInstance) => {
     return api.get(`/comments/${movieId}`)
       .then((response) => {
+        dispatch(ActionCreator.setSelectedMovieReviews(response.data));
+      })
+  },
+  updateMovieReviews: (movieId, reviewData) => (dispatch: Dispatch, getState: () => State, api: AxiosInstance) => {
+    return api.post(`/comments/${movieId}`, {
+      rating: reviewData.rating,
+      comment: reviewData.comment,
+    })
+      .then((response) => {
+        console.log(response.data);
         dispatch(ActionCreator.setSelectedMovieReviews(response.data));
       })
   }
