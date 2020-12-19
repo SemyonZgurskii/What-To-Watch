@@ -26,12 +26,16 @@ function withSmallVideo(Component: React.ComponentType<ComponentProps>): React.C
 
     function handleMouseEnter() {
       timerId = setTimeout(() => setPlayingStatus(true),1000);
-    }
+    };
 
     function handleMouseOut() {
       setPlayingStatus(false);
       clearTimeout(timerId);
-    }
+    };
+
+    useEffect(() => {
+      return () => clearTimeout(timerId);
+    });
 
     useEffect(() => {
       if (isPlaying) {
@@ -41,7 +45,7 @@ function withSmallVideo(Component: React.ComponentType<ComponentProps>): React.C
         video.current.pause();
         video.current.src = "";
       }
-    },[isPlaying])
+    },[isPlaying]);
 
     return (
       <Component
