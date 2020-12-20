@@ -4,7 +4,7 @@ import {Genre} from "../../constants";
 import {createSelector} from "reselect";
 import {getActiveGenre, getSelectedMovieId} from "../app/selector";
 
-const NAME_SPACE: string = NameSpace.DATA;
+const NAME_SPACE = NameSpace.DATA;
 
 export function getMoviesData(state: GlobalState): MoviesData {
   return state[NAME_SPACE].moviesData;
@@ -16,6 +16,10 @@ export function getPromoMovie(state: GlobalState): Movie {
 
 export function getMovieReviews(state: GlobalState): Reviews {
   return state[NAME_SPACE].selectedMovieReviews;
+}
+
+export function getUserMoviesList(state: GlobalState): MoviesData {
+  return state[NAME_SPACE].userMovies;
 }
 
 export const getSelectedMovie = createSelector(
@@ -43,11 +47,11 @@ export const getSimilarMovies = createSelector(
 )
 
 export function getGenres(state: GlobalState): Genre[] | null {
-  if (state[NameSpace.DATA].moviesData === null) {
+  if (state[NAME_SPACE].moviesData === null) {
     return null;
   }
 
-  const genres = state[NameSpace.DATA].moviesData.map(({genre}) => genre);
+  const genres = state[NAME_SPACE].moviesData.map(({genre}) => genre);
   const uniqueGenres = [...new Set(genres)];
 
   return uniqueGenres;
