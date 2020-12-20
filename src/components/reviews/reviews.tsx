@@ -22,8 +22,8 @@ function Reviews(props: Props) {
 
   useEffect(() => {
     if (reviews.length >= 2) {
-      setLeftSideReviews(reviews.slice(0, Math.floor(reviews.length/2)));
-      setRightSideReviews(reviews.slice(Math.floor(reviews.length/2), reviews.length - 1));
+      setLeftSideReviews(reviews.slice(0, Math.ceil(reviews.length/2)));
+      setRightSideReviews(reviews.slice(Math.ceil(reviews.length/2)));
     } else {
       setLeftSideReviews(reviews);
     }
@@ -36,15 +36,15 @@ function Reviews(props: Props) {
       <div className="movie-card__reviews movie-card__row">
 
         <div className="movie-card__reviews-col">
-          {leftSideReviews.map((review) => {
-            return <Review review={review} key={review.user.id}/>
+          {leftSideReviews.map((review, index) => {
+            return <Review review={review} key={review.user.id + index}/>
           })}
         </div>
 
         <div className="movie-card__reviews-col">
           {rightSideReviews &&
-            rightSideReviews.map((review) => {
-              return <Review review={review} key={review.user.id}/>
+            rightSideReviews.map((review, index) => {
+              return <Review review={review} key={review.user.id + index}/>
           })}
         </div>
 
