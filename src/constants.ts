@@ -25,4 +25,9 @@ export enum AppRoute {
   MY_LIST = "/my-list",
 }
 
+export enum UserListAction {
+  ADD = 1,
+  DELETE = 0.1,
+}
+
 export const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
