@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {Router, Switch, Route} from "react-router-dom";
 import history from "../../history";
 import {MoviesData, GlobalState, Movie, PostReviewData} from '../../types';
-import {getFilteredMovies, getGenres, getPromoMovie, getSelectedMovie, getSimilarMovies} from "../../reducer/data/selector";
+import {getFilteredMovies, getGenres, getPromoMovie, getSelectedMovie, getSimilarMovies, getUserMoviesList} from "../../reducer/data/selector";
 import {getActiveGenre} from "../../reducer/app/selector";
 import {ActionCreator} from "../../reducer/app/app";
 import {AppRoute, Genre} from "../../constants";
@@ -13,9 +13,10 @@ import withBigVideo from "../../hocs/with-big-video-player/with-big-video";
 import MovieInfo from "../movie-info/movie-info";
 import SignIn from "../sign-in/sign-in";
 import {Operation as userOperation} from "../../reducer/user/user";
-import {Operation as dataOperation} from "../../reducer/data/data";
+import {Operation as DataOperation, Operation as dataOperation} from "../../reducer/data/data";
 import AddReview from "../add-review/add-review";
 import MyList from "../my-list/my-list";
+import {getAuthorizationStatus} from "../../reducer/user/selector";
 
 const BigVideoPlayerWrapped = withBigVideo(BigVideoPlayer);
 
@@ -30,10 +31,20 @@ interface Props {
   similarMovies: MoviesData,
   login: ({email, password}: {email: string, password: string}) => void,
   updateMovieReviews: (movieId: number, review: PostReviewData) => void,
+  userMoviesData: MoviesData,
+  authorizationStatus: string,
+  loadUserMovies: () => void,
+  changeIsFavoriteStatus: (id: Movie["id"], status: Movie["isFavorite"]) => void,
 }
 
 class App extends React.PureComponent<Props, {}> {
   static defaultProps = {moviesData: null};
+
+  componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<{}>, snapshot?: any) {
+    if (prevProps.authorizationStatus !== this.props.authorizationStatus) {
+      this.props.loadUserMovies();
+    }
+  }
 
   render() {
     const {
@@ -47,6 +58,8 @@ class App extends React.PureComponent<Props, {}> {
       similarMovies,
       login,
       updateMovieReviews,
+      userMoviesData,
+      changeIsFavoriteStatus,
     } = this.props;
     const promo = promoMovie ? promoMovie : null;
 
@@ -72,6 +85,7 @@ class App extends React.PureComponent<Props, {}> {
               moviesData={similarMovies}
               movieData={selectedMovie}
               onPlayButtonClick={setSelectedMovieId}
+              changeIsFavoriteStatus={changeIsFavoriteStatus}
             />
           </Route>
           <Route exart path={AppRoute.SIGN_IN}>
@@ -102,6 +116,8 @@ function mapStateToProps(state: GlobalState) {
     genres: getGenres(state),
     selectedMovie: getSelectedMovie(state),
     similarMovies: getSimilarMovies(state),
+    userMoviesData: getUserMoviesList(state),
+    authorizationStatus: getAuthorizationStatus(state),
   }
 }
 
@@ -111,6 +127,8 @@ function mapDispatchToProps(dispatch) {
     setSelectedMovieId(id) {dispatch(ActionCreator.setSelectedMovieId(id))},
     login(authData) {dispatch(userOperation.login(authData))},
     updateMovieReviews(id, reviewData) {dispatch(dataOperation.updateMovieReviews(id, reviewData))},
+    loadUserMovies() {dispatch(dataOperation.loadUserMovies())},
+    changeIsFavoriteStatus(id, action) {dispatch(DataOperation.updateUserMovies(id, action))},
   }
 }
 
