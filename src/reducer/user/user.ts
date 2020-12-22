@@ -7,7 +7,7 @@ type PropertiesType<T> = T extends {[key: string]: infer U} ? U : never;
 type Action = ReturnType<PropertiesType<typeof ActionCreator>>
 
 export interface State {
-  authorizationStatus: typeof AuthorizationStatus;
+  authorizationStatus: typeof AuthorizationStatus,
 }
 
 const initialState = {
@@ -24,7 +24,7 @@ const ActionCreator = {
       type: ActionType.REQUIRE_AUTHORIZATION,
       payload: status,
     } as const
-  }
+  },
 }
 
 const Operation = {
