@@ -1,7 +1,8 @@
 import * as React from "react";
 import {Link, useLocation} from "react-router-dom";
+import history from "../../history";
 import {connect} from "react-redux";
-import { AppRoute } from "../../constants";
+import {AppRoute} from "../../constants";
 import {AuthorizationStatus} from "../../reducer/user/user";
 import {GlobalState, PropertiesType} from "../../types";
 import {getAuthorizationStatus} from "../../reducer/user/selector";
@@ -41,7 +42,9 @@ function MainHeader(props: Props) {
 
       <div className="user-block">
           {authorizationStatus === AuthorizationStatus.AUTH &&
-            <div className="user-block__avatar">
+            <div className="user-block__avatar"
+                 onClick={() => history.push(AppRoute.MY_LIST)}
+            >
               <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
             </div>}
           {authorizationStatus === AuthorizationStatus.NO_AUTH &&
