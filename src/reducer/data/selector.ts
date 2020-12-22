@@ -10,9 +10,27 @@ export function getMoviesData(state: GlobalState): MoviesData {
   return state[NAME_SPACE].moviesData;
 }
 
-export function getPromoMovie(state: GlobalState): Movie {
+export function getRawPromoMovie(state: GlobalState): Movie {
   return state[NAME_SPACE].promoMovie;
 }
+
+export const getPromoMovie = createSelector(
+  getRawPromoMovie,
+  getUserMoviesList,
+  (rawPromoMovie, userMoviesList) => {
+    if (!userMoviesList || userMoviesList.length === 0) {
+      return rawPromoMovie;
+    }
+
+    const indexInList = userMoviesList.findIndex(({id}) => id === rawPromoMovie.id);
+
+    if (indexInList < 0) {
+      return rawPromoMovie;
+    }
+
+    return userMoviesList[indexInList];
+  }
+)
 
 export function getMovieReviews(state: GlobalState): Reviews {
   return state[NAME_SPACE].selectedMovieReviews;
@@ -25,12 +43,26 @@ export function getUserMoviesList(state: GlobalState): MoviesData {
 export const getSelectedMovie = createSelector(
   getMoviesData,
   getSelectedMovieId,
-  (moviesData, selectedMovieId) => {
-    if (selectedMovieId === null) {
+  getUserMoviesList,
+  (moviesData, selectedMovieId, userMoviesList) => {
+
+    if (!selectedMovieId) {
       return null;
     }
 
-    return moviesData.find(({id}) => id === selectedMovieId);
+    const currentMovie = moviesData.find(({id}) => id === selectedMovieId);
+
+    if (!userMoviesList || userMoviesList.length === 0) {
+      return currentMovie;
+    }
+
+    const indexInList = userMoviesList.findIndex(({id}) => id === currentMovie.id);
+
+    if (indexInList < 0) {
+      return currentMovie;
+    }
+
+    return userMoviesList[indexInList];
   }
 )
 
