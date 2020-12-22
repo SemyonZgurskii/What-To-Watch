@@ -6,15 +6,17 @@ import MoreLikeThis from "../more-like-this/more-like-this";
 import InfoDescription from "../info-description/info-description";
 import {Link} from "react-router-dom";
 import MainHeader from "../main-header/main-header";
+import MyListButton from "../my-list-button/my-list-button";
 
 interface Props {
   movieData: Movie,
   onPlayButtonClick: (id: Movie["id"]) => void
   moviesData: MoviesData,
+  changeIsFavoriteStatus: (id: Movie["id"], status: Movie["isFavorite"]) => void,
 }
 
 function MovieInfo(props: Props) {
-  const {movieData, onPlayButtonClick, moviesData} = props;
+  const {movieData, onPlayButtonClick, moviesData, changeIsFavoriteStatus} = props;
   const {
     backgroundImage,
     genre,
@@ -22,6 +24,7 @@ function MovieInfo(props: Props) {
     posterImage,
     releaseDate,
     id,
+    isFavorite
   } = movieData;
 
   return (
@@ -56,12 +59,12 @@ function MovieInfo(props: Props) {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list movie-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                </button>
+
+                <MyListButton
+                  isFavorite={isFavorite}
+                  onButtonClick={() => changeIsFavoriteStatus(id, isFavorite)}
+                />
+
                 <Link href="add-review.html" className="btn movie-card__button"
                       to={AppRoute.ADD_REVIEW}
                 >Add review</Link>
