@@ -2,18 +2,21 @@ import * as React from "react";
 import history from "../../history";
 import {AppRoute} from "../../constants";
 import {Movie} from "../../types";
-import {ActionCreator} from "../../reducer/app/app";
+import {ActionCreator as AppActionCreator} from "../../reducer/app/app";
+import {Operation as DataOperation} from "../../reducer/data/data";
 import {connect} from "react-redux";
+import MyListButton from "../my-list-button/my-list-button";
 
 interface Props {
   promoMovie: Movie,
   children: React.ReactNode,
-  onPlayButtonClick: (id: Movie["id"]) => void;
+  onPlayButtonClick: (id: Movie["id"]) => void,
+  changeIsFavoriteStatus: (id: Movie["id"], status: Movie["isFavorite"]) => void,
 }
 
 function Promo(props: Props) {
-const {promoMovie, children, onPlayButtonClick} = props;
-  const {posterImage, releaseDate, genre, name, backgroundImage, id} = promoMovie;
+  const {promoMovie, children, onPlayButtonClick, changeIsFavoriteStatus} = props;
+  const {posterImage, releaseDate, genre, name, backgroundImage, id, isFavorite} = promoMovie;
 
   return (
     <section className="movie-card">
@@ -53,12 +56,10 @@ const {promoMovie, children, onPlayButtonClick} = props;
                 </svg>
                 <span>Play</span>
               </button>
-              <button className="btn btn--list movie-card__button" type="button">
-                <svg viewBox="0 0 19 20" width="19" height="20">
-                  <use xlinkHref="#add"></use>
-                </svg>
-                <span>My list</span>
-              </button>
+              <MyListButton
+                isFavorite={isFavorite}
+                onButtonClick={() => changeIsFavoriteStatus(id, isFavorite)}
+              />
             </div>
           </div>
         </div>
@@ -69,9 +70,8 @@ const {promoMovie, children, onPlayButtonClick} = props;
 
 function mapDispatchToProps(dispatch) {
   return {
-    onPlayButtonClick(id) {
-      dispatch(ActionCreator.setSelectedMovieId(id))
-    }
+    onPlayButtonClick(id) {dispatch(AppActionCreator.setSelectedMovieId(id))},
+    changeIsFavoriteStatus(id, action) {dispatch(DataOperation.updateUserMovies(id, action))},
   }
 }
 
